@@ -9,7 +9,7 @@ export default function Home() {
       <h1>Traced Map – Ghuman Hera DTC Depot</h1>
       <DepotMap />
       <h1>DTC Depot Layout</h1>
-      <SiteLayout />
+      
     </main>
   );
 }
