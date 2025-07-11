@@ -1,84 +1,54 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 
-type Label = {
-  text: string;
-  x: number;
-  y: number;
-};
+interface SiteLabel {
+  id: string;
+  label: string;
+  top: number;
+  left: number;
+  bgColor?: string;
+}
 
-const labels: Label[] = [
-  { text: 'CNG pump', x: 1400, y: 400 },
-  { text: 'Washing plant', x: 1300, y: 200 },
-  { text: 'Washing plant', x: 1600, y: 250 },
-  { text: 'Washing plant', x: 1800, y: 200 },
-  { text: 'Workshop', x: 1400, y: 300 },
-  { text: 'Workshop', x: 1600, y: 320 },
-  { text: 'Workshop', x: 1750, y: 350 },
-  { text: 'Admin block', x: 800, y: 900 },
-  { text: 'Admin block', x: 900, y: 920 },
-  { text: 'Main entrance gate', x: 800, y: 1000 },
-  { text: 'Exit gate', x: 800, y: 1100 },
-  { text: 'Exit gate', x: 900, y: 1150 },
-  { text: 'Guard room', x: 780, y: 990 },
-  { text: 'Guard room', x: 880, y: 1130 },
-  { text: 'Car bike parking', x: 950, y: 1200 },
-  { text: 'DTC depot', x: 1500, y: 1600 },
-  { text: 'Driver rest room', x: 1900, y: 1250 },
+const labels: SiteLabel[] = [
+  { id: 'admin-1', label: 'Admin block', top: 150, left: 200 },
+  { id: 'workshop-1', label: 'Workshop', top: 120, left: 430 },
+  { id: 'workshop-2', label: 'Workshop', top: 80, left: 460 },
+  { id: 'cng', label: 'CNG pump', top: 10, left: 150 },
+  { id: 'exit', label: 'Exit gate', top: 330, left: 90 },
+  { id: 'depot', label: 'DTC depot', top: 410, left: 250, bgColor: '#ffd43b' },
+  { id: 'car-bike', label: 'Car bike parking', top: 360, left: 180 },
+  { id: 'plant-1', label: 'Washing plant', top: 180, left: 300 },
+  { id: 'plant-2', label: 'Washing plant', top: 100, left: 510 },
 ];
 
-export default function DepotSiteMap() {
-  const imgRef = useRef<HTMLImageElement>(null);
-  const [imgSize, setImgSize] = useState<{ width: number; height: number }>({ width: 0, height: 0 });
-
-  useEffect(() => {
-    const img = imgRef.current;
-    if (img && img.complete) {
-      setImgSize({ width: img.naturalWidth, height: img.naturalHeight });
-    }
-  }, []);
-
-  const handleImgLoad = () => {
-    const img = imgRef.current;
-    if (img) setImgSize({ width: img.naturalWidth, height: img.naturalHeight });
-  };
-
+const SiteMap: React.FC = () => {
   return (
-    <div style={{ position: 'relative', display: 'inline-block' }}>
-      {/* Base site image */}
+    <div className="relative w-[600px] h-[600px] border shadow">
+      {/* Background Image */}
       <img
-        ref={imgRef}
-        src="/dtc_depot.jpg"
-        alt="Ghuman Hera DTC Depot"
-        onLoad={handleImgLoad}
-        style={{ display: 'block', maxWidth: '100%', height: 'auto' }}
+        src="/GHD1&2 depot site map.jpg"
+        alt="Depot Layout"
+        className="absolute top-0 left-0 w-full h-full object-cover"
       />
 
-      {/* SVG overlay for labels */}
-      {imgSize.width > 0 && (
-        <svg
-          width={imgSize.width}
-          height={imgSize.height}
-          style={{ position: 'absolute', top: 0, left: 0, pointerEvents: 'none' }}
+      {/* Overlay Labels */}
+      {labels.map(({ id, label, top, left, bgColor }) => (
+        <div
+          key={id}
+          className="absolute text-xs px-2 py-1 rounded shadow"
+          style={{
+            top,
+            left,
+            backgroundColor: bgColor || 'white',
+            border: '1px solid #333',
+          }}
         >
-          {labels.map(({ text, x, y }, i) => (
-            <text
-              key={i}
-              x={x}
-              y={y}
-              fontSize="24"
-              fontFamily="Arial, sans-serif"
-              fill="white"
-              stroke="black"
-              strokeWidth="3"
-              paintOrder="stroke"
-            >
-              {text}
-            </text>
-          ))}
-        </svg>
-      )}
+          {label}
+        </div>
+      ))}
     </div>
   );
-}
+};
+
+export default SiteMap;
