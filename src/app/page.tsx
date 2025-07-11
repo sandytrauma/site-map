@@ -1,7 +1,7 @@
 import Image from "next/image";
 import DepotMap from "./components/DepotMap";
-import TraceMap from "./components/TraceMap";
-import SiteLayout from "./components/siteLayout";
+import DepotPolygonMap from "./components/DepotOverlayMap";
+
 
 export default function Home() {
   return (
@@ -9,7 +9,7 @@ export default function Home() {
       <h1>Traced Map – Ghuman Hera DTC Depot</h1>
       <DepotMap />
       <h1>DTC Depot Layout</h1>
-      
+      <DepotPolygonMap/>
     </main>
   );
 }

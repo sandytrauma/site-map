@@ -27,7 +27,7 @@ const SiteMap: React.FC = () => {
     <div className="relative w-[600px] h-[600px] border shadow">
       {/* Background Image */}
       <img
-        src="/GHD1&2 depot site map.jpg"
+        src="/dtc_depot.jpg"
         alt="Depot Layout"
         className="absolute top-0 left-0 w-full h-full object-cover"
       />
